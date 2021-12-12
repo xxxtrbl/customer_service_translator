@@ -85,10 +85,20 @@ string Step::executeListen()
 	string str = "";
 	cin >> str;
 
-	if (_answer.count(str)!=1)
+	if (this->_answer.size() > 0&&_answer.count(str)!=1)
 	{
 		cout<<"silence..."<<endl;
-		Sleep(interval * 100);
+		//Sleep(100);
+		str = "";
+	}
+	else if (this->_answer.size() == 0)
+	{
+		//将用户的意见输出到文件中
+		ofstream complain;
+		complain.open("complaint.txt", ios::app);
+		complain << str << endl;
+		//标记为commit
+		str = "@commit";
 	}
 	return str;
 }
@@ -108,7 +118,7 @@ StepId Step::get_certain_id(Answer ans)
 	}
 	else
 	{
-		return NULL;
+		return "";
 	}
 }
 StepId Step::getStepid()

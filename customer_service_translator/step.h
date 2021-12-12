@@ -1,6 +1,6 @@
 #pragma once
 #include"dataStructure.h"
-#include<Windows.h>
+#include<ctime>
 
 class Step {
 private:

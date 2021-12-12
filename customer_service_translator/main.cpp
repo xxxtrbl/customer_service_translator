@@ -7,5 +7,6 @@ int main()
 	Interpreter _interpreter;
 	_interpreter.Interpret();
 
+	system("PAUSE");
 	return 0;
 }
