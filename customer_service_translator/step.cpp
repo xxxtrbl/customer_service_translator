@@ -66,6 +66,14 @@ void Step::executeSpeak()
 		else if ((*it).var.length() > 0)
 		{
 			/*变量输出真值*/
+			if ((*it).var == "$name")
+			{
+				cout << "xxxtrbl";
+			}
+			else if ((*it).var == "$amount")
+			{
+				cout << "100";
+			}
 		}
 	}
 }
