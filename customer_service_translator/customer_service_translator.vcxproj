@@ -156,6 +156,9 @@
     <Text Include="script.txt" />
     <Text Include="script1.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SQLScript.sql" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

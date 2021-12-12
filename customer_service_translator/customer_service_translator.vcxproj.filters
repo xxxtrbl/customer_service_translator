@@ -56,4 +56,7 @@
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SQLScript.sql" />
+  </ItemGroup>
 </Project>
