@@ -7,6 +7,12 @@
 #include<fstream>
 using namespace std;
 
+typedef string Varname;
+typedef string StepId;
+typedef string Answer;
+
+typedef string Token;
+
 //The interval of listening time.
 struct interval {
 	int beginTimer;
@@ -17,9 +23,4 @@ struct item {
 	string out;
 	Varname var;
 }typedef Item;
-
-typedef string Varname;
-typedef string StepId;
-typedef string Answer;
 typedef list<Item> Expression;
-typedef string Token;

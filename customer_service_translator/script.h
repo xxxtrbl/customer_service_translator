@@ -9,8 +9,10 @@ private:
 
 public:
 	map<StepId, Step> _step;
+
+	Script();
 	//创建一个Step
-	Step& processStep(StepId& id);
+	Step processStep(StepId& id);
 	//添加_step
 	void addStep(StepId& id,Step& the_step);
 	//设置entry step

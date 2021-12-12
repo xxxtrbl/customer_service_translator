@@ -44,4 +44,6 @@ public:
 	bool if_terminate();
 	//ªÒ»°stepID
 	StepId getStepid();
+	//øΩ±¥step
+	Step& operator = (const Step& s);
 };

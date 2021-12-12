@@ -12,9 +12,11 @@ void Step::speakProcess(vector<Token>& tokens)
 
 	for (auto it = tokens.begin()+1; it < tokens.end(); it++)
 	{
+		_item.out = "";
+		_item.var = "";
 		if ((*it)[0] == '$')
 		{
-			_item.var = (*it)[0];
+			_item.var = (*it);
 		}
 		else if ((*it) == "+")
 		{
@@ -60,30 +62,32 @@ void Step::executeSpeak()
 	{
 		if ((*it).out.length() > 0)
 		{
-			string s((*it).out.begin() + 1, (*it).out.end() - 1);
-			cout << s<<" ";
+			cout << (*it).out<< " ";
 		}
 		else if ((*it).var.length() > 0)
 		{
 			/*变量输出真值*/
 			if ((*it).var == "$name")
 			{
-				cout << "xxxtrbl";
+				cout << "xxxtrbl ";
 			}
 			else if ((*it).var == "$amount")
 			{
-				cout << "100";
+				cout << "100 ";
 			}
 		}
 	}
+	cout << endl;
 }
 string Step::executeListen()
 {
 	int interval = this->_listen.endTimer - this->_listen.beginTimer;
-	string str = NULL;
+	string str = "";
 	cin >> str;
-	if (str == "\n")
+
+	if (_answer.count(str)!=1)
 	{
+		cout<<"silence..."<<endl;
 		Sleep(interval * 100);
 	}
 	return str;
@@ -110,4 +114,22 @@ StepId Step::get_certain_id(Answer ans)
 StepId Step::getStepid()
 {
 	return this->_stepid;
+}
+bool Step::if_terminate()
+{
+	return this->_terminate;
+}
+Step& Step:: operator = (const Step& s) {
+	if (this == &s) {
+		return *this;
+	}
+
+	this->_speak = s._speak;
+	this->_listen = s._listen;
+	this->_answer = s._answer;
+	this->_silence = s._silence;
+	this->_default = s._default;
+	this->_stepid = s._stepid;
+	this->_terminate = s._terminate;
+	return *this;
 }

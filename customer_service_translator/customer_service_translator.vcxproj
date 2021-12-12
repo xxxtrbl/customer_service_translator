@@ -152,6 +152,10 @@
     <ClCompile Include="script.cpp" />
     <ClCompile Include="step.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="script.txt" />
+    <Text Include="script1.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

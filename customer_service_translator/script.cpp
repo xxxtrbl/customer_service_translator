@@ -3,10 +3,8 @@
 Script::Script()
 {
 	this->_entry = "";
-	this->_step.clear();
-	this->_vars.clear();
 }
-Step& Script::processStep(StepId& id)
+Step Script::processStep(StepId& id)
 {
 	Step _step;
 	_step.initialStepid(id);
@@ -18,8 +16,7 @@ void Script::addStep(StepId& id,Step& the_step)
 }
 void Script::setEntry(StepId& id)
 {
-	if(_entry=="")
-		this->_entry = id;
+	this->_entry = id;
 }
 void Script::addVars(Varname name)
 {

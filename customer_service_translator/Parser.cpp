@@ -2,7 +2,7 @@
 //读文件到script_file中,以行为单位
 void Parser:: parseFile()
 {
-	file.open("script.txt", ios::in);
+	file.open("script1.txt", ios::in);
 	string strLine;
 	vector<string> words;
 
@@ -26,11 +26,16 @@ void Parser::buildTree()
 	
 	Token token;
 
+	auto i = script_file.begin();
 	//以行为单位处理script,根据每行的TOKEN选择处理方式
-	for (auto i = script_file.begin(); i != script_file.end(); i++)
+	for (; i != script_file.end(); i++)
 	{
 		processTokens(*i);
 	}
+
+	//添加最后一个step
+	StepId id = cur_step.getStepid();
+	_script.addStep(id, cur_step);
 }
 void Parser::processTokens(vector<Token>& tokens)
 {
@@ -41,9 +46,18 @@ void Parser::processTokens(vector<Token>& tokens)
 	{
 		StepId id = cur_step.getStepid();
 
-		if(id!="")
+		
+		if (id != "")
+		{
+			
+			if (_script._step.size() == 0)
+				_script.setEntry(id);
+
 			/*上一个step处理完毕,将其插入Script中*/
-			_script.addStep(id,cur_step);
+			_script.addStep(id, cur_step);
+			
+		}
+			
 
 		/*进入到新创建的step*/
 		cur_step = _script.processStep(tokens[1]);
@@ -59,7 +73,7 @@ void Parser::processTokens(vector<Token>& tokens)
 	else if (token == "Silence")
 		cur_step.silenceProcess(tokens[1]);
 	else if (token == "Default")
-		cur_step.silenceProcess(tokens[1]);
+		cur_step.defaultProcess(tokens[1]);
 	else if (token == "Exit")
 		cur_step.exitProcess();
 }
