@@ -81,7 +81,7 @@ void Parser::processTokens(vector<Token>& tokens)
 }
 void Parser::parseVars()
 {
-	auto it = this->data_file.begin();
+	auto it = data_file.begin();
 	for (auto i = (*it).begin(); i != (*it).end(); i++)
 	{
 		this->_script.addVars((*i));
@@ -101,30 +101,4 @@ void Parser::Parse()
 Script& Parser::getScript()
 {
 	return this->_script;
-}
-string Parser::checkVar(Varname var,string strnm)
-{
-	int i;
-
-	for (i = 0; i < this->data_file[0].size(); i++)
-	{
-		if (data_file[0][i] == var)
-			break;
-	}
-	for (int j = 1; j < data_file.size(); j++)
-	{
-		if (data_file[j][i] == strnm)
-		{
-			return strnm;
-		}
-	}
-	return "";
-}
-bool Parser::addItem(string name,double money)
-{
-	ofstream create;
-	create.open("complaint.txt", ios::app);
-	create << name << " "<<money<<endl;
-	create.close();
-	return true;
 }

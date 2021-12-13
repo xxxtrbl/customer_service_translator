@@ -12,12 +12,6 @@ typedef string StepId;
 typedef string Answer;
 
 typedef string Token;
-
-//The interval of listening time.
-struct interval {
-	int beginTimer;
-	int endTimer;
-}typedef Listen;
 //Store the item ROBOT would say.
 struct item {
 	string out;
@@ -26,3 +20,4 @@ struct item {
 typedef list<Item> Expression;
 typedef vector<string> Line;
 typedef vector<vector<string>> File;
+typedef Varname Listen;

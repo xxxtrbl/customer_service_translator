@@ -4,13 +4,13 @@
 
 extern string script_file_name;
 extern string data_file_name;
+extern File data_file;
 
 class Parser {
 
 private:
 	Script _script;
 	File script_file;
-	File data_file;
 	Step cur_step;
 
 	
@@ -27,8 +27,5 @@ public:
 	void Parse();
 	//获取语法树
 	Script& getScript();
-	//查询用户名
-	string checkVar(Varname var,string strnm);
-	//创建用户
-	bool addItem(string namem,double money);
+	
 };

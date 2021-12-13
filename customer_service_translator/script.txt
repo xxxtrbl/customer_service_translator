@@ -1,30 +1,48 @@
-ï»¿Step welcome
-	Speak $name + "æ‚¨å¥½,è¯·é—®æœ‰ä»€ä¹ˆå¯ä»¥å¸®æ‚¨? 1.æŠ•è¯‰ 2.è´¦å•"
-	Listen 5 , 20
-	Branch "æŠ•è¯‰" , complainProc
-	Branch "è´¦å•" , billProc
-	Silence silence
+Step welcome
+	Speak  ÄúºÃ,ÇëÊäÈëÄúµÄĞÕÃû
+	Listen $name
+	Branch True , mainProc
+	Branch False , createProc
+	Silence silenceProc
+	Default defaultProc
+Step createProc
+	Speak ÓÃ»§Ãû²»´æÔÚ! ÇëÊäÈëÄúÒª´´½¨µÄÓÃ»§Ãû
+	Listen $name
+	Default mainProc
+Step mainProc
+	Speak ÄúºÃ + $name + ,ÇëÊäÈëÄúµÄÇëÇó 1.Í¶Ëß 2.Óà¶î 3.³äÖµ 4.ÍË³ö
+	Listen 
+	Branch Í¶Ëß , complainProc
+	Branch Óà¶î , billProc
+	Branch ³äÖµ , chargeProc
+	Branch ÍË³ö , thanks
+	Silence silenceProc
+	Default defaultProc
+Step chargeProc
+	Speak ÇëÊäÈëÄúµÄ³äÖµ½ğ¶î
+	Listen $money
 	Default defaultProc
 Step complainProc
-	Speak "æ‚¨çš„æ„è§æ˜¯æˆ‘ä»¬æ”¹è¿›å·¥ä½œçš„åŠ¨åŠ›,è¯·é—®æ‚¨è¿˜æœ‰ä»€ä¹ˆè¡¥å……?"
-	Listen 5 , 50
+	Speak ÄúµÄÒâ¼ûÊÇÎÒÃÇ¸Ä½ø¹¤×÷µÄ¶¯Á¦,ÇëÎÊÄú¶ÔÎÒÃÇÓĞÊ²Ã´Òâ¼û?
+	Listen
 	Default thanks
 Step thanks
-	Speak "æ„Ÿè°¢æ‚¨çš„æ¥ç”µ,å†è§"
+	Speak ¸ĞĞ»ÄúµÄÀ´µç,ÔÙ¼û
 	Exit
 Step billProc
-	Speak "æ‚¨çš„æœ¬æœˆè´¦å•æ˜¯" + $amount + "å…ƒ,æ„Ÿè°¢æ‚¨çš„æ¥ç”µ,å†è§"
-	Exit
+	Speak ÄúµÄÓà¶îÊÇ + $amount + Ôª
+	Default mainProc
 Step silenceProc
-	Speak "å¬ä¸æ¸…,è¯·æ‚¨é‡æ–°è¾“å…¥"
-	Branch "æŠ•è¯‰" , complainProc
-	Branch "è´¦å•" , billProc
+	Speak Ìı²»Çå,ÇëÄúÖØĞÂÊäÈë
+	Listen
+	Branch Í¶Ëß , complainProc
+	Branch ÕËµ¥ , billProc
 	Silence silenceProc
 	Default defaultProc
 Step defaultProc
-	Speak "è¯·æ‚¨åšå‡ºé€‰æ‹©!å¦åˆ™è‡ªåŠ¨é€€å‡º! 1.ä¸»é¡µ 2.é€€å‡º"
-	Listen 5 , 20
-	Branch "ä¸»é¡µ" , welcome
-	Branch "é€€å‡º" , thanks
+	Speak ÇëÄú×ö³öÑ¡Ôñ!·ñÔò×Ô¶¯ÍË³ö! 1.Ö÷Ò³ 2.ÍË³ö
+	Listen
+	Branch Ö÷Ò³ , mainProc
+	Branch ÍË³ö , thanks
 	Silence thanks
 	Default thanks

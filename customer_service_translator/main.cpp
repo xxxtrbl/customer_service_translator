@@ -4,7 +4,9 @@
 
 string script_file_name;
 string data_file_name;
-
+File data_file;
+string name = "xxxtrbl";
+double amount = 9.99;
 int main()
 {
 	cout << "请输入要编译的脚本文件名:" << endl;

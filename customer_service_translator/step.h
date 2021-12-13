@@ -1,6 +1,7 @@
 #pragma once
 #include"dataStructure.h"
 #include<ctime>
+#include<string.h>
 
 class Step {
 private:
@@ -46,4 +47,10 @@ public:
 	StepId getStepid();
 	//拷贝step
 	Step& operator = (const Step& s);
+	//查询用户名
+	bool checkVar(Varname var, string strnm);
+	//创建用户
+	bool addItem(string namem, double money);
+	//修改金额
+	void changeMoney();
 };

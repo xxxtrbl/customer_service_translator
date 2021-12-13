@@ -1,9 +1,14 @@
 #include"step.h"
 
+extern string name;
+extern double amount;
+extern File data_file;
+extern string data_file_name;
 Step::Step() {
 	this->_silence = "";
 	this->_default = "";
 	this->_stepid = "";
+	this->_listen = "";
 	this->_terminate = false;
 }
 void Step::speakProcess(vector<Token>& tokens)
@@ -31,9 +36,8 @@ void Step::speakProcess(vector<Token>& tokens)
 }
 void Step::listenProcess(vector<Token>& tokens)
 {
-	//把形如 b , e 的tokens转化成listen结构
-	_listen.beginTimer = stoi(tokens[1]);
-	_listen.endTimer = stoi(tokens[3]);
+	if(tokens.size()>1)
+		this->_listen = tokens[1];
 }
 void Step::branchProcess(vector<string>& tokens)
 {
@@ -69,11 +73,11 @@ void Step::executeSpeak()
 			/*变量输出真值*/
 			if ((*it).var == "$name")
 			{
-				cout << "xxxtrbl ";
+				cout << name;
 			}
 			else if ((*it).var == "$amount")
 			{
-				cout << "100 ";
+				cout << amount;
 			}
 		}
 	}
@@ -81,14 +85,36 @@ void Step::executeSpeak()
 }
 string Step::executeListen()
 {
-	int interval = this->_listen.endTimer - this->_listen.beginTimer;
 	string str = "";
 	cin >> str;
+
+	if (this->_listen == "$name")
+	{
+		if (this->_answer.size() > 0)
+		{
+			bool check = this->checkVar(this->_listen, str);
+			if (check)
+				return "True";
+			else
+				return "False";
+		}
+		else
+		{
+			this->addItem(str, 0);
+			return "@commit";
+		}
+	}
+	else if (this->_listen == "$money")
+	{
+		amount += atof(str.c_str());
+		//保存在data_file文件中
+		this->changeMoney();
+		return "@commit";
+	}
 
 	if (this->_answer.size() > 0&&_answer.count(str)!=1)
 	{
 		cout<<"silence..."<<endl;
-		//Sleep(100);
 		str = "";
 	}
 	else if (this->_answer.size() == 0)
@@ -100,6 +126,7 @@ string Step::executeListen()
 		//标记为commit
 		str = "@commit";
 	}
+
 	return str;
 }
 StepId Step::get_silence_id()
@@ -142,4 +169,54 @@ Step& Step:: operator = (const Step& s) {
 	this->_stepid = s._stepid;
 	this->_terminate = s._terminate;
 	return *this;
+}
+bool Step::checkVar(Varname var, string strnm)
+{
+	int i;
+
+	for (i = 0; i < data_file[0].size(); i++)
+	{
+		if (data_file[0][i] == var)
+			break;
+	}
+	for (int j = 1; j < data_file.size(); j++)
+	{
+		if (data_file[j][i] == strnm)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+bool Step::addItem(string name, double money)
+{
+	ofstream create;
+	create.open(data_file_name, ios::app);
+	create << name << " " << money << endl;
+	create.close();
+	return true;
+}
+void Step::changeMoney()
+{
+	int index_money;
+	int index_name;
+	for (int k = 0; k < data_file[0].size(); k++)
+	{
+		if (data_file[0][k] == "$money")
+		{
+			index_money = k;
+		}
+		else if (data_file[0][k] == "$name")
+		{
+			index_name = k;
+		}
+	}
+	for (int i = 0; i < data_file.size(); i++)
+	{
+		if (data_file[i][index_name] == name)
+		{
+			data_file[i][index_money] = amount;
+			break;
+		}
+	}
 }

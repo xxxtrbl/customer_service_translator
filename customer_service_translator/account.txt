@@ -1,2 +1,4 @@
-$name $amount
-xxxtrbl 100
+$name $amount 
+xxxtrbl 100 
+sss 0 
+sa 0 

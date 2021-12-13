@@ -14,4 +14,6 @@ public:
 	Interpreter();
 	//½øĞĞ·­Òë
 	void Interpret();
+
+	~Interpreter();
 };

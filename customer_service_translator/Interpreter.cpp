@@ -1,5 +1,7 @@
 #include"Interpreter.h"
-string name;
+
+extern string name;
+extern double money;
 
 Interpreter::Interpreter()
 {
@@ -39,7 +41,11 @@ void Interpreter::Interpret()
 		}
 		else if (str == "@commit")
 		{
-
+			//判断step是否有改变,如果没有则跳入default step中
+			if (id == cur_step.getStepid())
+			{
+				cur_step = _script._step[cur_step.get_default_id()];
+			}
 		}
 		else
 		{
@@ -64,4 +70,17 @@ void Interpreter::Interpret()
 			cur_step = _script._step[ cur_step.get_default_id()];
 		}
 	} while (true);
+}
+Interpreter::~Interpreter()
+{
+	ofstream out(data_file_name);
+	for (auto it = data_file.begin(); it != data_file.end(); it++)
+	{
+		for (int i = 0; i < (*it).size(); i++)
+		{
+			out << (*it)[i] << " ";
+		}
+		out << endl;
+	}
+	out.close();
 }
