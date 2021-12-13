@@ -1,0 +1,2 @@
+$name $amount
+xxxtrbl 100

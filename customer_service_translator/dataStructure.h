@@ -24,3 +24,5 @@ struct item {
 	Varname var;
 }typedef Item;
 typedef list<Item> Expression;
+typedef vector<string> Line;
+typedef vector<vector<string>> File;

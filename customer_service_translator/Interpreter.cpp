@@ -1,4 +1,5 @@
 #include"Interpreter.h"
+string name;
 
 Interpreter::Interpreter()
 {

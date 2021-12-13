@@ -1,10 +1,13 @@
 #include"Parser.h"
+
+
 //读文件到script_file中,以行为单位
-void Parser:: parseFile()
+void Parser:: parseFile(string sfname,File& ofname)
 {
-	file.open("script1.txt", ios::in);
+	ifstream file;
+	file.open(sfname, ios::in);
 	string strLine;
-	vector<string> words;
+	Line words;
 
 	//逐行读取脚本文件,用空格分割,存入script_file中
 	while (getline(file, strLine))
@@ -17,8 +20,9 @@ void Parser:: parseFile()
 		string word;
 		while (is >> word)
 			words.push_back(word);
-		script_file.push_back(words);
+		ofname.push_back(words);
 	}
+	file.close();
 }
 //Build grammer tree by building a script and other steps of the script structure.
 void Parser::buildTree()
@@ -57,8 +61,6 @@ void Parser::processTokens(vector<Token>& tokens)
 			_script.addStep(id, cur_step);
 			
 		}
-			
-
 		/*进入到新创建的step*/
 		cur_step = _script.processStep(tokens[1]);
 	}
@@ -77,14 +79,52 @@ void Parser::processTokens(vector<Token>& tokens)
 	else if (token == "Exit")
 		cur_step.exitProcess();
 }
+void Parser::parseVars()
+{
+	auto it = this->data_file.begin();
+	for (auto i = (*it).begin(); i != (*it).end(); i++)
+	{
+		this->_script.addVars((*i));
+	}
+}
 void Parser::Parse()
 {
 	//读取脚本文件
-	this->parseFile();
+	this->parseFile(script_file_name,script_file);
+	//读取数据文件
+	this->parseFile(data_file_name, data_file);
+	//将变量存入var中
+	this->parseVars();
 	//建立脚本语法树
 	this->buildTree();
 }
 Script& Parser::getScript()
 {
 	return this->_script;
+}
+string Parser::checkVar(Varname var,string strnm)
+{
+	int i;
+
+	for (i = 0; i < this->data_file[0].size(); i++)
+	{
+		if (data_file[0][i] == var)
+			break;
+	}
+	for (int j = 1; j < data_file.size(); j++)
+	{
+		if (data_file[j][i] == strnm)
+		{
+			return strnm;
+		}
+	}
+	return "";
+}
+bool Parser::addItem(string name,double money)
+{
+	ofstream create;
+	create.open("complaint.txt", ios::app);
+	create << name << " "<<money<<endl;
+	create.close();
+	return true;
 }
