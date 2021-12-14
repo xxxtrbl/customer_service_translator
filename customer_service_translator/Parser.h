@@ -10,7 +10,9 @@ class Parser {
 
 private:
 	Script _script;
+	//script文件
 	File script_file;
+	//记录当前step
 	Step cur_step;
 
 	
@@ -19,11 +21,11 @@ public:
 	void parseFile(string sfname,File &ofname );
 	//处理变量
 	void parseVars();
-	//To build a grammer tree.
+	//建立一个语法树
 	void buildTree();
 	//处理tokens
 	void processTokens(vector<Token>& tokens);
-	//Parser parses.
+	//进行分析
 	void Parse();
 	//获取语法树
 	Script& getScript();

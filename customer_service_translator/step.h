@@ -47,10 +47,12 @@ public:
 	StepId getStepid();
 	//拷贝step
 	Step& operator = (const Step& s);
-	//查询用户名
+	//查询变量名
 	bool checkVar(Varname var, string strnm);
 	//创建用户
 	bool addItem(string namem, double money);
+	//查询
+	string findVar(Varname svar, Varname ovar, string nm);
 	//修改金额
 	void changeMoney();
 };

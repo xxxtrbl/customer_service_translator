@@ -30,7 +30,7 @@ Step thanks
 	Speak 感谢您的来电,再见
 	Exit
 Step billProc
-	Speak 您的余额是 + $amount + 元
+	Speak 您的余额是 + $amount + 元 + ,结束后输入ok进入主页
 	Default mainProc
 Step silenceProc
 	Speak 听不清,请您重新输入

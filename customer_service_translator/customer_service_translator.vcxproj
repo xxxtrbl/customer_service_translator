@@ -153,7 +153,7 @@
     <ClCompile Include="step.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="account.txt" />
+    <Text Include="data.txt" />
     <Text Include="script.txt" />
     <Text Include="script1.txt" />
   </ItemGroup>

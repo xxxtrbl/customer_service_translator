@@ -1,0 +1,4 @@
+$name $money 
+xxxtrbl 100 
+key 500.000000 
+xxx 0

@@ -17,7 +17,7 @@ void Step::speakProcess(vector<Token>& tokens)
 
 	for (auto it = tokens.begin()+1; it < tokens.end(); it++)
 	{
-		_item.out = "";
+		_item.answer = "";
 		_item.var = "";
 		if ((*it)[0] == '$')
 		{
@@ -29,7 +29,7 @@ void Step::speakProcess(vector<Token>& tokens)
 		}
 		else
 		{
-			_item.out = (*it);
+			_item.answer = (*it);
 		}
 		_speak.push_back(_item);
 	}
@@ -64,9 +64,9 @@ void Step::executeSpeak()
 {
 	for (auto it = _speak.begin(); it != _speak.end(); it++)
 	{
-		if ((*it).out.length() > 0)
+		if ((*it).answer.length() > 0)
 		{
-			cout << (*it).out<< " ";
+			cout << (*it).answer<< " ";
 		}
 		else if ((*it).var.length() > 0)
 		{
@@ -94,14 +94,28 @@ string Step::executeListen()
 		{
 			bool check = this->checkVar(this->_listen, str);
 			if (check)
+			{
+				if (this->_listen == "$name")
+				{
+					name = str;
+					amount = stof( this->findVar("$name", "$money", str));
+				}
+				else
+				{
+					amount = stof(str);
+					name = this->checkVar("$name", to_string(amount));
+				}
 				return "True";
+			}
 			else
 				return "False";
 		}
 		else
 		{
-			this->addItem(str, 0);
-			return "@commit";
+			name = str;
+			amount = 0;
+			this->addItem(name,amount);
+			return "@tag";
 		}
 	}
 	else if (this->_listen == "$money")
@@ -109,7 +123,12 @@ string Step::executeListen()
 		amount += atof(str.c_str());
 		//保存在data_file文件中
 		this->changeMoney();
-		return "@commit";
+		return "@tag";
+	}
+	else if (this->_listen.size() > 0)
+	{
+		cout << _listen<<endl;
+		return "@tag";
 	}
 
 	if (this->_answer.size() > 0&&_answer.count(str)!=1)
@@ -119,12 +138,12 @@ string Step::executeListen()
 	}
 	else if (this->_answer.size() == 0)
 	{
-		//将用户的意见输出到文件中
+		//将用户的意见输出到文件complaint.txt中
 		ofstream complain;
 		complain.open("complaint.txt", ios::app);
 		complain << str << endl;
 		//标记为commit
-		str = "@commit";
+		str = "@tag";
 	}
 
 	return str;
@@ -215,8 +234,32 @@ void Step::changeMoney()
 	{
 		if (data_file[i][index_name] == name)
 		{
-			data_file[i][index_money] = amount;
+			data_file[i][index_money] = to_string( amount);
 			break;
 		}
 	}
+}
+string Step::findVar(Varname svar, Varname ovar, string nm)
+{
+	int s, o;
+
+	for (int i = 0; i < data_file[0].size(); i++)
+	{
+		if (data_file[0][i] == svar)
+		{
+			s = i;
+		}
+		else if (data_file[0][i] == ovar)
+		{
+			o = i;
+		}
+	}
+	for (int j = 1; j < data_file.size(); j++)
+	{
+		if (data_file[j][s] == nm)
+		{
+			return data_file[j][o];
+		}
+	}
+	return "-1";
 }

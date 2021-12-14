@@ -52,10 +52,10 @@
     <Text Include="script1.txt">
       <Filter>资源文件</Filter>
     </Text>
-    <Text Include="account.txt">
+    <Text Include="script.txt">
       <Filter>资源文件</Filter>
     </Text>
-    <Text Include="script.txt">
+    <Text Include="data.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
