@@ -10,6 +10,7 @@ private:
 public:
 	map<StepId, Step> _step;
 
+	//初始化变量
 	Script();
 	//创建一个Step
 	Step processStep(StepId& id);
@@ -21,4 +22,5 @@ public:
 	StepId getEntry();
 	//添加_vars();
 	void addVars(Varname name);
+
 };

@@ -2,17 +2,16 @@
 #include"Interpreter.h"
 #include<winsock.h>
 
-string script_file_name;
-string data_file_name;
+string script_file_name = "script.txt";
+string data_file_name = "data.txt";
+string test_out = "test_out.txt";
+ofstream test_stream;
 File data_file;
 string name = "xxxtrbl";
 double amount = 9;
+
 int main()
 {
-	cout << "请输入要编译的脚本文件名:" << endl;
-	cin >> script_file_name;
-	cout << "请输入对应的数据文件名:" << endl;
-	cin >> data_file_name;
 	Interpreter _interpreter;
 	_interpreter.Interpret();
 	

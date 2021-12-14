@@ -1,4 +1,8 @@
 $name $money 
-xxxtrbl 100 
+xxxtrbl 130.000000 
 key 500.000000 
-xxx 0
+xxx 0 
+sss 0 
+aaa 0 
+sssa 0 
+aaaa 0 

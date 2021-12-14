@@ -1,13 +1,13 @@
 Step welcome
 	Speak $name + 您好,请问有什么可以帮您? 1.投诉 2.账单 3.主页
-	Listen 5 , 20
+	Listen
 	Branch 投诉 , complainProc
 	Branch 账单 , billProc
 	Branch 主页 , defaultProc
 	Silence silenceProc
 Step complainProc
 	Speak 您的意见是我们改进工作的动力,请问您对我们有什么意见?
-	Listen 5 , 50
+	Listen
 	Default thanks
 Step thanks
 	Speak 感谢您的来电,再见
@@ -23,7 +23,7 @@ Step silenceProc
 	Default defaultProc
 Step defaultProc
 	Speak 请您做出选择!否则自动退出! 1.欢迎 2.退出
-	Listen 5 , 20
+	Listen
 	Branch 欢迎 , welcome
 	Branch 退出 , thanks
 	Silence thanks
